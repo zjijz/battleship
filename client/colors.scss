@@ -1,0 +1,25 @@
+$carrier-color: hotpink;
+$battleship-color: skyblue;
+$cruiser-color: yellow;
+$submarine-color: greenyellow;
+$destroyer-color: tomato;
+
+.carrier {
+  background-color: $carrier-color;
+}
+
+.battleship {
+  background-color: $battleship-color;
+}
+
+.cruiser {
+  background-color: $cruiser-color;
+}
+
+.submarine {
+  background-color: $submarine-color;
+}
+
+.destroyer {
+  background-color: $destroyer-color;
+}

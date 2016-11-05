@@ -1,0 +1,15 @@
+<template name="board">
+    <ul class="board">
+        {{#each board}}
+            {{#let x=@index }}
+            <li class="row">
+                {{#each this}}
+                    {{#let y=@index}}
+                    <span class={{this.type}} position="{{x}}:{{y}}"></span>
+                    {{/let}}
+                {{/each}}
+            </li>
+            {{/let}}
+        {{/each}}
+    </ul>
+</template>

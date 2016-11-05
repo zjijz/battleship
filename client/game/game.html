@@ -1,0 +1,87 @@
+<!--.wrapper
+    .game
+        if game
+            .computer
+                .game-wrapper
+                    p Computer Board
+                    +board(board=game.state_computer.pieces)
+                .key-wrapper
+                    p Key
+                    ul.key
+                        li
+                            span.color.carrier
+                            span Carrier
+                        li
+                            span.color.battleship
+                            span Battleship
+                        li
+                            span.color.cruiser
+                            span Cruiser
+                        li
+                            span.color.submarine
+                            span Submarine
+                        li
+                            span.color.destroyer
+                            span Destroyer
+            .player
+                p Player Board
+                +board(board=game.state_player.pieces)
+    .console
+        p.header Moves
+        ol
+            if game
+                each move in game.moves_history
+                    li #{move}-->
+<template name="game">
+    <div class="wrapper">
+        <div class="game">
+            {{#if game}}
+                <div class="computer">
+                    <div class="game-wrapper">
+                        <p>Computer Board</p>
+                        {{> board board=game.state_computer.pieces}}
+                    </div>
+                    <div class="key-wrapper">
+                        <p>Key</p>
+                        <ul class="key">
+                            <li>
+                                <span class="color carrier"></span>
+                                <span>Carrier</span>
+                            </li>
+                            <li>
+                                <span class="color battleship"></span>
+                                <span>Battleship</span>
+                            </li>
+                            <li>
+                                <span class="color cruiser"></span>
+                                <span>Cruiser</span>
+                            </li>
+                            <li>
+                                <span class="color submarine"></span>
+                                <span>Submarine</span>
+                            </li>
+                            <li>
+                                <span class="color destroyer"></span>
+                                <span>Destroyer</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="player">
+                    <p>Player Board</p>
+                    {{> board board=game.state_player.pieces}}
+                </div>
+            {{/if}}
+        </div>
+        <div class="console">
+            <p class="header">Moves</p>
+            <ol>
+                {{#if game}}
+                    {{#each game.moves_history}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                {{/if}}
+            </ol>
+        </div>
+    </div>
+</template>

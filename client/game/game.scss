@@ -1,0 +1,88 @@
+@import '../colors.scss';
+
+$key-width: 150px;
+$key-color-width: 10px;
+
+.wrapper {
+  display: flex;
+
+  min-width: 700px;
+
+  padding: 10px 40px;
+
+  div.game {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    div.computer, div.player {
+      p {
+        text-align: center;
+      }
+    }
+
+    div.computer {
+      display: flex;
+
+      div.key-wrapper {
+        width: $key-width;
+
+        padding-left: 20px;
+        box-sizing: border-box;
+
+        ul.key {
+          margin: 0;
+          padding: 0;
+
+          li {
+            list-style: none;
+
+            span.color {
+              width: $key-color-width;
+              height: $key-color-width;
+              border: 1px solid black;
+
+              margin-right: 5px;
+
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+
+    div.player {
+      padding-right: $key-width;
+    }
+  }
+
+  div.console {
+    flex: 1 1 auto;
+
+    border: 1px solid black;
+
+    min-height: 100%;
+
+    overflow-y: scroll;
+
+    > * {
+      margin: 10px 20px;
+    }
+
+    p.header {
+      width: 100%;
+
+      margin: 0;
+      padding: 10px 20px;
+      border-bottom: 1px black solid;
+
+      box-sizing: border-box;
+    }
+
+    ol {
+      padding: 0 20px;
+    }
+  }
+}
