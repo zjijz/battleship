@@ -191,7 +191,7 @@ Meteor.methods({
     attack(gameId, x, y) {
         const attack = makeAttack(gameId, 'state_computer', 'state_player', x, y);
         if (attack.hit) {
-            // Update move
+            // Attack message
             Games.update({_id: gameId}, {
                 $push: {
                     moves_history: 'Player attacked (' + (y + 1) + ', ' + (x + 1)
@@ -199,6 +199,12 @@ Meteor.methods({
                 }
             });
 
+            // Sink message
+            if (attack.sink)
+                Games.update({ _id: gameId },
+                    { $push: { moves_history: 'You have sunk the computer\'s ' + attack.sink + '!' } });
+
+            // Win message
             if (attack.win) {
                 const state = (attack.win == 'state_player' ? 12 : 13);
                 Games.update({ _id: gameId }, {

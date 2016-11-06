@@ -106,18 +106,24 @@ export const makeAttack = function(gameId, state, oppState, x, y) {
     // Block more clicks on frontend
     Games.update({ _id: gameId }, { $inc: { [stateStr]: 1, [oppStateStr]: -1 } });
 
+    // First, check if the space has been attacked before
     let pieces = game[state].pieces;
     if (pieces[x][y].hit != Game.ATTACK_NONE) {
         Games.update({_id: gameId},
             {
                 $inc: { [stateStr]: -1, [oppStateStr]: 1 }
             });
-        return { hit: null, win: null };
+        return { hit: null, sink: null, win: null };
     } else {
         // Change hit to miss or hit
         const oldPiece = pieces[x][y];
         oldPiece.hit = oldPiece.type != Game.NONE_TYPE ? Game.ATTACK_HIT : Game.ATTACK_MISS;
         pieces[x][y] = oldPiece;
+
+        // Check if will be sunk
+        // (We check for when a ship being hit has 1 left instead of a ship having 0, because then we can catch which
+        // attack will sink a ship, not which ships have been sunk!)
+        let sink = (checkIfShipWillSink(game[state], pieces[x][y].type)) ? pieces[x][y].type : null;
 
         // See if a ship needs to be decremented
         const rawType = pieces[x][y].type;
@@ -146,7 +152,7 @@ export const makeAttack = function(gameId, state, oppState, x, y) {
             });
 
         // Check win state
-        return { hit: pieces[x][y].hit, win: checkWinState(gameId)};
+        return { hit: pieces[x][y].hit, sink: sink, win: checkWinState(gameId)};
     }
 };
 
@@ -171,6 +177,11 @@ export const computerAttack = function(gameId) {
         { $push: { moves_history: 'Computer attacked (' + (y + 1) + ', ' + (x + 1) + ') for a '
                     + (attack.hit == Game.ATTACK_HIT ? 'hit.' : 'miss.') } });
 
+    // Sink message
+    if (attack.sink)
+        Games.update({ _id: gameId }, { $push: { moves_history: 'Computer has sunk your ' + attack.sink + '!' } });
+
+    // Win message
     if (attack.win) {
         const state = (attack.win == 'state_player' ? 12 : 13);
         Games.update({ _id: gameId }, {
@@ -181,8 +192,9 @@ export const computerAttack = function(gameId) {
     }
 };
 
-export const checkIfShipWillSink = function() {
 
+export const checkIfShipWillSink = function(state, type) {
+    return state[type + '_left'] == 1;
 };
 
 /**

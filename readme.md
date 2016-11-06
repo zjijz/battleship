@@ -24,13 +24,13 @@ existing state variable, since Blaze would prerender the template with a truthy 
 computer board to the player.
 
 # Requirements
-- [x] 2 players (Sorta)
+- [x] 2 players (Sorta: one is a computer)
 - [x] 2 grids
 - [x] Multiple ships in play at the beginning
 - [x] Players take turns (Live player always goes first)
-- [ ] Attack states
+- [x] Attack states
   - [x] Hit
   - [x] Miss
   - [x] Already Taken
-  - [ ] Sunk
+  - [x] Sunk
   - [x] Win
