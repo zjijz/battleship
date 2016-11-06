@@ -1,5 +1,8 @@
+# About
+Completed over the course of two days as a code sample for a potential internship with Arka for Spring 2017
+
 # Technologies
-- Meteor.js
+- Meteor.js (1.4.1.2)
 - Blaze Templating
 - SCSS Preprocessor (fourseven:scss package)
 - FlowRouter (kadira:flow-router package)
