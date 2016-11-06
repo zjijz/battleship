@@ -1,37 +1,3 @@
-<!--.wrapper
-    .game
-        if game
-            .computer
-                .game-wrapper
-                    p Computer Board
-                    +board(board=game.state_computer.pieces)
-                .key-wrapper
-                    p Key
-                    ul.key
-                        li
-                            span.color.carrier
-                            span Carrier
-                        li
-                            span.color.battleship
-                            span Battleship
-                        li
-                            span.color.cruiser
-                            span Cruiser
-                        li
-                            span.color.submarine
-                            span Submarine
-                        li
-                            span.color.destroyer
-                            span Destroyer
-            .player
-                p Player Board
-                +board(board=game.state_player.pieces)
-    .console
-        p.header Moves
-        ol
-            if game
-                each move in game.moves_history
-                    li #{move}-->
 <template name="game">
     <div class="wrapper">
         <div class="game">

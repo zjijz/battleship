@@ -75,11 +75,7 @@ export const createComputerState = function() {
             taken_pieces.push(point);
             state.pieces[point.x][point.y] = new Piece(shipType);
         }
-
-        console.log(taken_pieces);
     }
-
-    console.log(state.pieces);
 
     return state;
 };

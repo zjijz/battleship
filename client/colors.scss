@@ -6,20 +6,45 @@ $destroyer-color: tomato;
 
 .carrier {
   background-color: $carrier-color;
+
+  &_l {
+    background-color: $carrier-color;
+    opacity: 0.5;
+  }
 }
 
 .battleship {
   background-color: $battleship-color;
+
+  &_l {
+    background-color: $battleship-color;
+    opacity: 0.5;
+  }
 }
 
 .cruiser {
   background-color: $cruiser-color;
+
+  &_l {
+    background-color: $cruiser-color;
+    opacity: 0.5;
+  }
 }
 
 .submarine {
   background-color: $submarine-color;
+
+  &_l {
+    background-color: $submarine-color;
+    opacity: 0.5;
+  }
 }
 
 .destroyer {
   background-color: $destroyer-color;
+
+  &_l {
+    background-color: $destroyer-color;
+    opacity: 0.5;
+  }
 }

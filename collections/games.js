@@ -15,7 +15,13 @@ export const BATTLESHIP_TYPE = 'battleship';
 export const CRUISER_TYPE = 'cruiser';
 export const SUBMARINE_TYPE = 'submarine';
 export const DESTROYER_TYPE = 'destroyer';
+export const CARRIER_LIGHT_TYPE = 'carrier_l';
+export const BATTLESHIP_LIGHT_TYPE = 'battleship_l';
+export const CRUISER_LIGHT_TYPE = 'cruiser_l';
+export const SUBMARINE_LIGHT_TYPE = 'submarine_l';
+export const DESTROYER_LIGHT_TYPE = 'destroyer_l';
 
+// Explicit game state enum for placing pieces
 export const STATE_PICK_CARRIER = 0;
 export const STATE_PICK_CARRIER_DIR = 1;
 export const STATE_PICK_BATTLESHIP = 2;
@@ -28,6 +34,7 @@ export const STATE_PICK_DESTROYER = 8;
 export const STATE_PICK_DESTROYER_DIR = 9;
 export const STATE_NORMAL = 10;
 
+// Enum for attack state
 export const ATTACK_HIT = 1;
 export const ATTACK_NONE = 0;
 export const ATTACK_MISS = -1;
