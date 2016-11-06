@@ -27,6 +27,9 @@ Template.game.events({
     },
 
     'click .computer'(event) {
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
         if (!event.target || !event.target.attributes[1]) return;
 
         // Retrieve X,Y pair

@@ -146,8 +146,6 @@ export const makeAttack = function(gameId, state, oppState, x, y) {
             });
 
         // Check win state
-        const winState = checkWinState(gameId);
-
         return { hit: pieces[x][y].hit, win: checkWinState(gameId)};
     }
 };
@@ -176,7 +174,8 @@ export const computerAttack = function(gameId) {
     if (attack.win) {
         const state = (attack.win == 'state_player' ? 12 : 13);
         Games.update({ _id: gameId }, {
-            $set: { 'state_player.state': state, 'state_computer.state': state },
+            $set: { 'state_player.state': state, 'state_computer.state': state, 'state_player.complete': true,
+                'state_computer.complete': true },
             $push: { moves_history: (state == 12 ? 'You have' : 'Computer has') + ' won the game!' }
         });
     }

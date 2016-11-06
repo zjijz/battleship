@@ -65,6 +65,7 @@ export class GameState {
         this.submarine_left = SUBMARINE_LENGTH;
         this.destroyer_left = DESTROYER_LENGTH;
         this.state = STATE_PICK_CARRIER;
+        this.complete = false;
     }
 
     /**

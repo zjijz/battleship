@@ -25,15 +25,9 @@ ul.board {
 
   display: inline-block;
 
-  &.computer:not(.done) {
+  &.computer:not(#done) {
     li.row span {
       background-color: rgba(0, 0, 0, 0.5);
-    }
-  }
-
-  &.done {
-    li.row span {
-      background-color: initial;
     }
   }
 

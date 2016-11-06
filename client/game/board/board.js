@@ -1,5 +1,5 @@
 Template.board.helpers({
     isDone() {
-        return !!(Template.currentData().state.state == 12 || Template.currentData().state.state == 13);
+        return (Template.currentData().state.complete) ? 'done' : '';
     }
 });

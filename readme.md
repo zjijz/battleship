@@ -15,4 +15,6 @@ the game continues one attack after the other until one player's ships are all d
 I wrote this over Saturday and Sunday, so it's not the most optimal and there are a few graphical glitches, but I feel
 it is a solid representation of my web skills and knowledge of Meteor / Mongo.
 
-Sometimes the screen flashes when making an attack, letting you see where the enemy ships are.
+Because of how Blaze renders, I had to create a boolean that only got checked when the game was complete, instead of just
+existing state variable, since Blaze would prerender the template with a truthy value or something and "flash" the
+computer board to the player.

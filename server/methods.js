@@ -88,7 +88,7 @@ const setSelector = function(gameId, pieces, x, y, length, light_type, type, mes
     const left = checkFieldSelection(pieces, 'left', x, y, length);
     const right = checkFieldSelection(pieces, 'right', x, y, length);
 
-    if (!up && !down && !left && !right) {
+    if ((!up && !down && !left && !right) || (pieces[x][y].type != Game.NONE_TYPE)) {
         Games.update({ _id: gameId },
             { $push: { moves_history: 'You cannot place the ship there.' } });
         return;
@@ -202,7 +202,8 @@ Meteor.methods({
             if (attack.win) {
                 const state = (attack.win == 'state_player' ? 12 : 13);
                 Games.update({ _id: gameId }, {
-                    $set: { 'state_player.state': state, 'state_computer.state': state },
+                    $set: { 'state_player.state': state, 'state_computer.state': state, 'state_player.complete': true,
+                            'state_computer.complete': true },
                     $push: { moves_history: (state == 12 ? 'You have' : 'Computer has') + ' won the game!' }
                 });
             } else {
