@@ -181,6 +181,10 @@ export const computerAttack = function(gameId) {
     }
 };
 
+export const checkIfShipWillSink = function() {
+
+};
+
 /**
  * Checks if a player has won.
  *

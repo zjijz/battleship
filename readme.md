@@ -1,5 +1,6 @@
 # About
-Completed over the course of two days as a code sample for a potential internship with Arka for Spring 2017
+Completed over the course of two days as a code sample for a potential internship with Arka for Spring 2017.
+Uses the Milton-Bradley rules I found on Wikipedia.
 
 # Technologies
 - Meteor.js (1.4.1.2)
@@ -21,3 +22,15 @@ it is a solid representation of my web skills and knowledge of Meteor / Mongo.
 Because of how Blaze renders, I had to create a boolean that only got checked when the game was complete, instead of just
 existing state variable, since Blaze would prerender the template with a truthy value or something and "flash" the
 computer board to the player.
+
+# Requirements
+- [x] 2 players (Sorta)
+- [x] 2 grids
+- [x] Multiple ships in play at the beginning
+- [x] Players take turns (Live player always goes first)
+- [ ] Attack states
+  - [x] Hit
+  - [x] Miss
+  - [x] Already Taken
+  - [ ] Sunk
+  - [x] Win
