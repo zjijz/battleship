@@ -1,12 +1,41 @@
 @import '../../colors.scss';
 
 $tile-size: 25px;
+$marker-size: 20px;
+
+.overlay {
+  content: "";
+  position: absolute;
+  display: block;
+}
+
+.marker {
+  @extend .overlay;
+
+  top: ($tile-size - $marker-size - 2) / 2;
+  left: ($tile-size - $marker-size - 2) / 2;
+
+  border: 1px solid black;
+  border-radius: 50%;
+}
 
 ul.board {
   padding: 0;
   margin: 0;
 
   display: inline-block;
+
+  &.computer:not(.done) {
+    li.row span {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &.done {
+    li.row span {
+      background-color: initial;
+    }
+  }
 
   li.row {
     list-style: none;
@@ -34,14 +63,32 @@ ul.board {
         border-right: 1px solid black;
       }
 
-      &:hover::before {
-        content: "";
+      &:hover::after {
+        @extend .overlay;
+
         width: $tile-size;
         height: $tile-size;
+
         background-color: black;
         opacity: 0.2;
-        position: absolute;
-        display: block;
+      }
+
+      &.hit::before {
+        @extend .marker;
+
+        width: $marker-size;
+        height: $marker-size;
+
+        background-color: red;
+      }
+
+      &.miss::before {
+        @extend .marker;
+
+        width: $marker-size;
+        height: $marker-size;
+
+        background-color: white;
       }
     }
   }

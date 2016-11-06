@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+
+import * as Game from '../../collections/games';
 import { Games } from '../../collections/games';
 
 Template.game.onCreated(function() {
@@ -10,18 +12,29 @@ Template.game.onCreated(function() {
 
 Template.game.events({
     'click .player'(event) {
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+        if (!event.target || !event.target.attributes[1]) return;
+
+        console.log('Setup...');
+
+        // Retrieve X,Y pair
+        const pair = event.target.attributes[1].value.split(':');
+
+        if (Template.instance().game.state_player.state < Game.STATE_PLAYER)
+            Meteor.call('moveGameState', Template.instance().game._id, parseInt(pair[0]), parseInt(pair[1]));
+    },
+
+    'click .computer'(event) {
         if (!event.target || !event.target.attributes[1]) return;
 
         // Retrieve X,Y pair
         const pair = event.target.attributes[1].value.split(':');
 
-        if (Template.instance().game.state_player.state < 10)
-            Meteor.call('moveGameState', Template.instance().game._id, parseInt(pair[0]), parseInt(pair[1]));
-    },
-
-    'click .computer'(event) {
-        if (Template.instance().game.state_player.state == 10) {
-            // Do work
+        if (Template.instance().game.state_player.state == Game.STATE_PLAYER) {
+            console.log('Attack...');
+            Meteor.call('attack', Template.instance().game._id, parseInt(pair[0]), parseInt(pair[1]));
         }
     }
 });

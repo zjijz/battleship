@@ -1,15 +1,31 @@
 <template name="board">
-    <ul class="board">
-        {{#each board}}
-            {{#let x=@index }}
-            <li class="row">
-                {{#each this}}
-                    {{#let y=@index}}
-                    <span class={{this.type}} position="{{x}}:{{y}}"></span>
-                    {{/let}}
-                {{/each}}
-            </li>
-            {{/let}}
-        {{/each}}
-    </ul>
+    {{#if isDone}}
+        <ul class="board">
+            {{#each state.pieces}}
+                {{#let x=@index }}
+                    <li class="row">
+                        {{#each this}}
+                            {{#let y=@index}}
+                                <span class="{{this.type}} {{this.hit}}" position="{{x}}:{{y}}"></span>
+                            {{/let}}
+                        {{/each}}
+                    </li>
+                {{/let}}
+            {{/each}}
+        </ul>
+    {{else}}
+        <ul class="board {{type}}">
+            {{#each state.pieces}}
+                {{#let x=@index }}
+                <li class="row">
+                    {{#each this}}
+                        {{#let y=@index}}
+                        <span class="{{this.type}} {{this.hit}}" position="{{x}}:{{y}}"></span>
+                        {{/let}}
+                    {{/each}}
+                </li>
+                {{/let}}
+            {{/each}}
+        </ul>
+    {{/if}}
 </template>

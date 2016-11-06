@@ -32,12 +32,22 @@ export const STATE_PICK_SUBMARINE = 6;
 export const STATE_PICK_SUBMARINE_DIR = 7;
 export const STATE_PICK_DESTROYER = 8;
 export const STATE_PICK_DESTROYER_DIR = 9;
-export const STATE_NORMAL = 10;
+export const STATE_PLAYER = 10;
+export const STATE_COMPUTER = 11;
+export const STATE_PLAYER_WON = 12;
+export const STATE_COMPUTER_WON = 13;
 
 // Enum for attack state
-export const ATTACK_HIT = 1;
-export const ATTACK_NONE = 0;
-export const ATTACK_MISS = -1;
+export const ATTACK_HIT = 'hit';
+export const ATTACK_NONE = 'no-attack';
+export const ATTACK_MISS = 'miss';
+
+// Enum for state variables
+export const CARRIER_STATE = 'carrier_left';
+export const BATTLESHIP_STATE = 'battleship_left';
+export const CRUISER_STATE = 'cruiser_left';
+export const SUBMARINE_STATE = 'submarine_left';
+export const DESTROYER_STATE = 'destroyer_left';
 
 export class Piece {
     constructor(type) {
@@ -54,7 +64,6 @@ export class GameState {
         this.cruiser_left = CRUISER_LENGTH;
         this.submarine_left = SUBMARINE_LENGTH;
         this.destroyer_left = DESTROYER_LENGTH;
-        this.moves = [];
         this.state = STATE_PICK_CARRIER;
     }
 

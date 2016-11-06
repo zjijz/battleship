@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 
 import * as Game from '../collections/games';
 import { Games, GameState, Piece } from '../collections/games';
-import { createComputerState } from './computer';
+import { createComputerState, makeAttack, computerAttack } from './computer';
 
 const checkFieldSelection = function(pieces, direction, x, y, length) {
     switch (direction) {
@@ -88,8 +88,11 @@ const setSelector = function(gameId, pieces, x, y, length, light_type, type, mes
     const left = checkFieldSelection(pieces, 'left', x, y, length);
     const right = checkFieldSelection(pieces, 'right', x, y, length);
 
-    if (!up && !down && !left && !right) Games.update({ _id: gameId },
-        { $push: { moves_history: 'You cannot place the ship there.' } });
+    if (!up && !down && !left && !right) {
+        Games.update({ _id: gameId },
+            { $push: { moves_history: 'You cannot place the ship there.' } });
+        return;
+    }
 
     setFieldSelection(pieces, x, y, light_type, length, up, down, left, right);
     pieces[x][y] = new Piece(type);
@@ -186,24 +189,32 @@ Meteor.methods({
      * @param y The y coordinate of the attack.
      */
     attack(gameId, x, y) {
-        const game = Games.findOne({ _id: gameId });
-        let pieces = game.state_computer.pieces;
-        if (pieces[x][y].hit != Game.ATTACK_NONE) {
-            Games.update({_id: gameId},
-                {
-                    $push: {
-                        moves_history: 'You have already made an attack on that location. Please pick a different one.'
-                    }
+        const attack = makeAttack(gameId, 'state_computer', 'state_player', x, y);
+        if (attack.hit) {
+            // Update move
+            Games.update({_id: gameId}, {
+                $push: {
+                    moves_history: 'Player attacked (' + (y + 1) + ', ' + (x + 1)
+                    + ') for a ' + (attack.hit == Game.ATTACK_HIT ? 'hit.' : 'miss.')
+                }
+            });
+
+            if (attack.win) {
+                const state = (attack.win == 'state_player' ? 12 : 13);
+                Games.update({ _id: gameId }, {
+                    $set: { 'state_player.state': state, 'state_computer.state': state },
+                    $push: { moves_history: (state == 12 ? 'You have' : 'Computer has') + ' won the game!' }
                 });
+            } else {
+                // Call computer attack
+                computerAttack(gameId);
+            }
         } else {
-            const oldPiece = pieces[x][y];
-            oldPiece.hit = oldPiece.type != Game.NONE_TYPE ? Game.ATTACK_HIT : Game.ATTACK_MISS;
-            pieces[x][y] = oldPiece;
-            Games.update({_id: gameId},
-                {
-                    $set: { 'state_computer.pieces': pieces },
-                    $push: {moves_history: 'You attacked (' + x + ', ' + y + ') for a ' + hitType}
-                });
+            Games.update({ _id: gameId }, {
+                $push: {
+                    moves_history: 'You have already made an attack on that location. Please pick a different one.'
+                }
+            });
         }
     }
 });

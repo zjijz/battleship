@@ -5,7 +5,7 @@
                 <div class="computer">
                     <div class="game-wrapper">
                         <p>Computer Board</p>
-                        {{> board board=game.state_computer.pieces}}
+                        {{> board state=game.state_computer type='computer'}}
                     </div>
                     <div class="key-wrapper">
                         <p>Key</p>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="player">
                     <p>Player Board</p>
-                    {{> board board=game.state_player.pieces}}
+                    {{> board state=game.state_player type='player'}}
                 </div>
             {{/if}}
         </div>
